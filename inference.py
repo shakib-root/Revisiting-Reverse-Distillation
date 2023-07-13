@@ -24,6 +24,7 @@ def get_args():
     parser.add_argument('--checkpoint_folder', default = './your_checkpoint_folder', type=str)
     parser.add_argument('--image_size', default = 256, type=int)
     parser.add_argument('--classes', nargs="+", default=["carpet", "leather"])
+    parser.add_argument('--data', default = '../mvtec-ad/', type=str)
     pars = parser.parse_args()
     return pars
 
@@ -34,7 +35,7 @@ def inference(_class_, pars):
 
     data_transform, gt_transform = get_data_transforms(pars.image_size, pars.image_size)
     
-    test_path = '/content/' + _class_
+    test_path = pars.data + _class_
 
     checkpoint_class  = pars.checkpoint_folder + '/' + _class_ + '/' + 'wres50_'+_class_+'.pth'
     test_data = MVTecDataset_test(root=test_path, transform=data_transform, gt_transform=gt_transform)
