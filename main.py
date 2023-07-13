@@ -37,6 +37,7 @@ def get_args():
     parser.add_argument('--distill_lr', default = 0.005, type=float)
     parser.add_argument('--weight_proj', default = 0.2, type=float) 
     parser.add_argument('--classes', nargs="+", default=["carpet", "leather"])
+    parser.add_argument('--data', default = '../mvtec-ad', type=str)
     pars = parser.parse_args()
     return pars
 
@@ -47,8 +48,8 @@ def train(_class_, pars):
 
     data_transform, gt_transform = get_data_transforms(pars.image_size, pars.image_size)
     
-    train_path = '/content/' + _class_ + '/train'
-    test_path = '/content/' + _class_
+    train_path = pars.data + _class_ + '/train'
+    test_path = pars.data + _class_
     
     if not os.path.exists(pars.save_folder + '/' + _class_):
         os.makedirs(pars.save_folder + '/' + _class_)
